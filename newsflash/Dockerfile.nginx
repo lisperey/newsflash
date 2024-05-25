@@ -1,0 +1,8 @@
+# Use a imagem oficial do Nginx como base
+FROM nginx:latest
+
+# Copia a configuração customizada do Nginx para o diretório apropriado
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Exponha a porta 80 para o balanceamento de carga
+EXPOSE 80
