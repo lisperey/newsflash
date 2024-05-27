@@ -1,34 +1,50 @@
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { useCategory } from '@/providers/CategoryContext';
 
 export default function CategorySlider() {
     const [active, setActive] = useState(1);
+    const { setCategory, category } = useCategory()
     const categorias = [
         {
             id: 1,
-            name: "recentes"
+            name: "Recentes",
+            categoria: ''
         },
         {
             id: 2,
-            name: "esportes"
+            name: "Esporte",
+            categoria: 'sports'
         },
         {
             id: 3,
-            name: "famosos"
+            name: "Tecnologia",
+            categoria: 'technology'
         },
         {
             id: 4,
-            name: "tech"
+            name: "Ciência",
+            categoria: 'science'
         },
         {
             id: 5,
-            name: "tech"
+            name: "Famosos",
+            categoria: 'celebrity'
         },
         {
             id: 6,
-            name: "tech"
+            name: "Economia",
+            categoria: 'economy'
         },
     ]
+
+    const handleChange = (idItem:number, categoria:string) =>{
+        setActive(idItem);
+        setCategory(categoria);
+
+    }
     return (
         <View style={styles.container}>
             <FlatList
@@ -36,7 +52,7 @@ export default function CategorySlider() {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={()=>setActive(item.id)}>
+                    <TouchableOpacity onPress={()=>handleChange(item.id, item.categoria)}>
                         <Text style={ item.id === active? styles.categoriasTextSelect:styles.categoriasText}>
                             {item.name}
                         </Text>

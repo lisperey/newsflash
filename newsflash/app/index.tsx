@@ -1,14 +1,21 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, VirtualizedList } from 'react-native'
 import React from 'react'
 import CategorySlider from '@/components/CategorySlider'
+import TopHeadlineSlider from '@/components/TopHeadlineSlider'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import HeadlineList from '@/components/HeadlineList'
 
 export default function Home() {
     return (
         <SafeAreaView style={styles.container}>
-            <View>
-                <Text style={styles.title}>NewsFlash</Text>
+            <ScrollView>
+                <View>
+                    <Text style={styles.title}>NewsFlash</Text>
+                </View>
                 <CategorySlider />
-            </View>
+                <TopHeadlineSlider />
+                <HeadlineList />
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -20,7 +27,7 @@ const styles = StyleSheet.create({
         padding: 30,
     },
 
-    title:{
+    title: {
         fontSize: 25,
         fontWeight: 'bold',
         color: '#3480ab',
