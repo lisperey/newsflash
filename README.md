@@ -9,8 +9,7 @@ O aplicativo Newsflash é um aplicativo móvel desenvolvido usando React Native 
 1. [Pré-requisitos](#pré-requisitos)
 2. [Instalação](#instalação)
 3. [Executando a Aplicação](#executando-a-aplicação)
-4. [Estrutura do Projeto](#estrutura-do-projeto)
-5. [Uso](#uso)
+4. [Uso](#uso)
 
 ## Pré-requisitos
 
@@ -44,8 +43,17 @@ Para instalar e configurar o aplicativo Newsflash, siga estas etapas:
 4. **Construa e inicie o container Docker:**
 
     ```bash
-    docker-compose up --build
+    docker-compose up -d
     ```
+5. **Execute o expo dentro do docker e escaneie o qrcode
+   ```bash
+    docker exec -it <nome_do_container_app1> yarn start
+    ```
+   obs: para pegar o nome do container só rodar o
+   ```bash
+   docker ps
+   ```
+   que aparece a lista dos containers
 
 ## Executando a Aplicação
 
