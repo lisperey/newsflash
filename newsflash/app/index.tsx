@@ -7,16 +7,18 @@ import HeadlineList from '@/components/HeadlineList'
 
 export default function Home() {
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView>
+        <ScrollView>
+            <SafeAreaView style={styles.container}>
+
                 <View>
                     <Text style={styles.title}>NewsFlash</Text>
                 </View>
                 <CategorySlider />
                 <TopHeadlineSlider />
                 <HeadlineList />
-            </ScrollView>
-        </SafeAreaView>
+
+            </SafeAreaView>
+        </ScrollView>
     )
 }
 

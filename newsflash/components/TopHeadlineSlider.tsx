@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
+import { View, Text, FlatList, Image, StyleSheet, Dimensions, ActivityIndicator, Linking, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import { useQuery } from 'react-query';
 import axios from 'axios';
@@ -12,7 +12,7 @@ export default function TopHeadlineSlider() {
 
   const { data, isLoading, error } = useQuery("topHeadline", () => {
     return axios
-      .get(`https://api.currentsapi.services/v1/latest-news?apiKey=qOTBTI_K42vvW6fez7s2f5rvgkopTeC3Hv-5FXtWVZcYM-AV&country=br&language=pt&limit:10&category=regional`)
+      .get(`https://api.currentsapi.services/v1/latest-news?apiKey=qOTBTI_K42vvW6fez7s2f5rvgkopTeC3Hv-5FXtWVZcYM-AV&country=br&language=pt&limit:5&category=regional`)
       .then(response => response.data)
 
   });
@@ -23,17 +23,30 @@ export default function TopHeadlineSlider() {
     );
   }
 
+  const handlePress = async (url:string) => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+      return;
+    }
+    Alert.alert(`Não foi possível abrir o URL: ${url}`);
+    return;
+
+  };
+
   return (
     <View>
       <FlatList
         data={data?.news}
         horizontal
         nestedScrollEnabled
+        contentContainerStyle={{ gap: 15 }}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item)=>item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item} onPress={()=>{}}>
-            <Image source={{ uri: item.image }} style={styles.image} />
+          <TouchableOpacity style={styles.item} onPress={()=>handlePress(item.url)}>
+            {item.image!=='None'?<Image source={{ uri: item.image }} style={styles.image}/>: <View style={{ marginTop: 10}}></View>}
             <Text style={styles.newsTitle}>{item.title}</Text>
             <Text style={styles.subtitle}>{item.author}</Text>
           </TouchableOpacity>)}
@@ -48,17 +61,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   item: {
-    width: Dimensions.get('screen').width * 0.80,
-    marginRight: 15
+    display: 'flex',
+    alignItems: 'center'
   },
   image: {
-    height: Dimensions.get('screen').width * 0.77,
+    marginTop: 10,
+    width: Dimensions.get('screen').width * 0.71,
+    height: Dimensions.get('screen').width * 0.79,
     borderRadius: 10
   },
   newsTitle: {
     marginTop: 10,
-    fontSize: 23,
+    fontSize: 20,
     fontWeight: '800',
+    width: Dimensions.get('screen').width * 0.63,
   },
   subtitle: {
     marginTop: 5,

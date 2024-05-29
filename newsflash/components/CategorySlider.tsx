@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, SectionList, VirtualizedList } from 'react-native'
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useQuery } from 'react-query';
@@ -15,13 +15,13 @@ export default function CategorySlider() {
         },
         {
             id: 2,
-            name: "Esporte",
-            categoria: 'sports'
+            name: "Tecnologia",
+            categoria: 'technology'
         },
         {
             id: 3,
-            name: "Tecnologia",
-            categoria: 'technology'
+            name: "Esporte",
+            categoria: 'sports'
         },
         {
             id: 4,
@@ -30,41 +30,42 @@ export default function CategorySlider() {
         },
         {
             id: 5,
-            name: "Famosos",
-            categoria: 'celebrity'
-        },
-        {
-            id: 6,
             name: "Economia",
             categoria: 'economy'
         },
     ]
 
-    const handleChange = (idItem:number, categoria:string) =>{
+    const getItem = (categorias: any, index: number) => categorias[index];
+    const getItemCount = (categorias: any) => categorias.length;
+
+    const handleChange = (idItem: number, categoria: string) => {
         setActive(idItem);
         setCategory(categoria);
 
     }
     return (
         <View style={styles.container}>
-            <FlatList
-                data={categorias}
+            <VirtualizedList
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={()=>handleChange(item.id, item.categoria)}>
-                        <Text style={ item.id === active? styles.categoriasTextSelect:styles.categoriasText}>
+                data={categorias}
+                initialNumToRender={10}
+                renderItem={({ item }:any) => (
+                    <TouchableOpacity onPress={() => handleChange(item.id, item.categoria)}>
+                        <Text style={item.id === active ? styles.categoriasTextSelect : styles.categoriasText}>
                             {item.name}
                         </Text>
                     </TouchableOpacity>)}
-
-            />
+                keyExtractor={item => item.id}
+            getItem={getItem}
+            getItemCount={getItemCount}
+    />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         marginTop: 10
     },
     categoriasText: {
