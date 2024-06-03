@@ -10,6 +10,7 @@ O aplicativo Newsflash é um aplicativo móvel desenvolvido usando React Native 
 2. [Instalação](#instalação)
 3. [Executando a Aplicação](#executando-a-aplicação)
 4. [Uso](#uso)
+5. [Equipe ](#equipe )
 
 ## Pré-requisitos
 
@@ -66,5 +67,14 @@ Para instalar e configurar o aplicativo Newsflash, siga estas etapas:
 
 - **Visualizando Notícias:** A tela principal exibe uma lista de notícias obtidas de uma API de notícias. Cada notícia mostra um título, uma breve descrição e uma imagem.
 - **Lendo Artigos Completos:** Clicar em uma notícia abrirá o artigo completo no navegador padrão do dispositivo.
+
+## Equipe 
+- Camylla Neves - CI/CD
+- Eduardo Urbieta - CI/CD 
+- Filipe Rosa - desenvolvimento, lógica, construção do docker-compose, dockerfile e load balance
+- Gabriel Santana - front e layout
+- Ianny Mamedes - front e layout
+- Rafael Lucas Dias - implementou api
+
 
 
